@@ -1,7 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
 title = "Khokher Property Adviser"
-#theme = ""
 publishDir = "public"
 
 [params]
