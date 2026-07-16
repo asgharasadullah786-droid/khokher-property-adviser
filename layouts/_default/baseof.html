@@ -14,6 +14,9 @@
     <!-- AOS Scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     
+    <!-- ===== NETLIFY IDENTITY WIDGET CSS ===== -->
+    <link rel="stylesheet" href="https://identity.netlify.com/v1/netlify-identity-widget.css" />
+    
     <style>
         /* ===== CSS Variables ===== */
         :root {
@@ -570,5 +573,24 @@
         });
     }
 </script>
+
+<!-- ===== NETLIFY IDENTITY WIDGET (For Admin Invite) ===== -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+    // Initialize Netlify Identity Widget
+    if (window.netlifyIdentity) {
+        window.netlifyIdentity.init();
+        
+        // Handle invite token
+        window.netlifyIdentity.on("init", user => {
+            if (!user) {
+                window.netlifyIdentity.on("login", () => {
+                    document.location.href = "/admin/";
+                });
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
