@@ -574,36 +574,42 @@
     }
 </script>
 
-<!-- ===== NETLIFY IDENTITY WIDGET (FIXED) ===== -->
+<!-- ===== NETLIFY IDENTITY WIDGET (FINAL FIX) ===== -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
-    if (window.netlifyIdentity) {
-        window.netlifyIdentity.init();
+    (function() {
+        // Check if there's a token in the URL hash (invite_token or confirmation_token)
+        var hash = window.location.hash;
+        var token = null;
         
-        if (window.location.hash.includes('invite_token')) {
-            window.netlifyIdentity.open('signup');
+        if (hash && (hash.includes('invite_token') || hash.includes('confirmation_token'))) {
+            // Extract token from hash
+            var tokenPart = hash.split('=')[1];
+            if (tokenPart) {
+                token = tokenPart;
+            }
         }
         
-        window.netlifyIdentity.on('login', function() {
-            document.location.href = '/admin/';
-        });
-        
-        window.netlifyIdentity.on('init', function(user) {
-            if (user) {
-                document.location.href = '/admin/';
+        if (token) {
+            // Redirect to /admin/ with the same hash (token will be preserved)
+            // This ensures the admin page can handle the signup flow
+            window.location.href = '/admin/' + hash;
+        } else {
+            // No token: initialize identity normally
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.init({
+                    container: '#netlify-identity-widget'
+                });
+                
+                // If user already logged in, go to admin
+                window.netlifyIdentity.on('init', function(user) {
+                    if (user) {
+                        document.location.href = '/admin/';
+                    }
+                });
             }
-        });
-    } else {
-        (function() {
-            var hash = window.location.hash;
-            if (hash && hash.includes('invite_token')) {
-                var token = hash.split('=')[1];
-                if (token) {
-                    window.location.href = '/admin/#invite_token=' + token;
-                }
-            }
-        })();
-    }
+        }
+    })();
 </script>
 
 </body>
