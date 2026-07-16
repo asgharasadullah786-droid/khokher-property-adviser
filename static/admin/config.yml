@@ -1,0 +1,48 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/images"
+public_folder: "/images"
+
+collections:
+  - name: "properties"
+    label: "Properties"
+    folder: "content/properties"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Price (PKR)", name: "price", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Size (sq ft)", name: "size", widget: "number", valueType: "int" }
+      - { label: "Bedrooms", name: "bedrooms", widget: "number", valueType: "int" }
+      - { label: "Bathrooms", name: "bathrooms", widget: "number", valueType: "int" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["Sale", "Rent"]
+      - label: "Location (Map)"
+        name: "latitude"
+        widget: "number"
+        valueType: "float"
+        hint: "Latitude (e.g., 31.5204)"
+      - label: "Location (Map)"
+        name: "longitude"
+        widget: "number"
+        valueType: "float"
+        hint: "Longitude (e.g., 74.3587)"
+      - label: "Images"
+        name: "images"
+        widget: "list"
+        field: { label: "Image", name: "image", widget: "image", media_folder: "/static/images", public_folder: "/images" }
+        hint: "Upload multiple images of the property"
+      - label: "Video File (MP4)"                    # <-- NEW FIELD
+        name: "video_file"                           # <--
+        widget: "file"                               # <--
+        required: false                              # <--
+        media_folder: "/static/videos"               # <--
+        public_folder: "/videos"                     # <--
+        hint: "Upload MP4 video file (max 100MB)"    # <--
+      - { label: "Description", name: "body", widget: "markdown" }

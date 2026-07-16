@@ -1,0 +1,27 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Khokher Property Adviser"
+#theme = ""
+publishDir = "public"
+
+[params]
+  name = "Khokher Property Adviser"
+  email = "khokher@property.com"
+  phone = "+92 300 1234567"
+  address = "Lahore, Pakistan"
+
+[mediaTypes]
+  [mediaTypes."text/netlify"]
+    suffix = "netlify"
+
+[outputFormats]
+  [outputFormats.NETLIFY]
+    mediaType = "text/netlify"
+    baseName = "_redirects"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+  home = ["HTML", "RSS", "NETLIFY"]
+  page = ["HTML"]
+  section = ["HTML"]

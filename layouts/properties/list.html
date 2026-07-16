@@ -1,0 +1,53 @@
+{{ define "main" }}
+
+<section style="padding-top:120px; background: var(--bg-secondary);">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">All <span style="color:var(--accent);">Properties</span></h2>
+        <p class="section-subtitle" data-aos="fade-up">Browse our complete collection of properties</p>
+
+        <div class="property-filters" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="sale">For Sale</button>
+            <button class="filter-btn" data-filter="rent">For Rent</button>
+        </div>
+
+        <div class="properties-grid">
+            {{ range .Pages }}
+            <div class="property-card" data-status="{{ .Params.status | lower }}" data-aos="fade-up">
+                <div class="property-thumb">
+                    {{ if .Params.images }}
+                        <img src="{{ index .Params.images 0 }}" alt="{{ .Title }}" />
+                    {{ else }}
+                        <img src="/images/placeholder.jpg" alt="No Image" />
+                    {{ end }}
+                    <span class="property-status {{ .Params.status | lower }}">{{ .Params.status }}</span>
+                    
+                    <!-- ===== VIDEO BADGE (NEW) ===== -->
+                    {{ if .Params.video_file }}
+                    <span style="position: absolute; bottom: 15px; left: 15px; background: rgba(220, 38, 38, 0.9); backdrop-filter: blur(4px); color: #fff; padding: 4px 15px; border-radius: 30px; font-size: 0.7rem; font-weight: 700; z-index: 2; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px;">
+                        <i class="fas fa-play"></i> Video Tour
+                    </span>
+                    {{ end }}
+                </div>
+                <div class="property-info">
+                    <h3>{{ .Title }}</h3>
+                    <div class="property-price">PKR {{ .Params.price }}</div>
+                    <div class="property-location"><i class="fas fa-map-marker-alt"></i> {{ .Params.location }}</div>
+                    <div class="property-details">
+                        <span><i class="fas fa-vector-square"></i> {{ .Params.size }} sq ft</span>
+                        <span><i class="fas fa-bed"></i> {{ .Params.bedrooms }} Beds</span>
+                        <span><i class="fas fa-bath"></i> {{ .Params.bathrooms }} Baths</span>
+                    </div>
+                    <a href="{{ .RelPermalink }}" class="btn-outline">View Details</a>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; }
+    .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.1rem; }
+</style>
+{{ end }}

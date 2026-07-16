@@ -1,0 +1,108 @@
+{{ define "main" }}
+
+<section style="padding-top:120px; background: var(--bg-primary);">
+    <div class="container">
+        <div class="property-single">
+            <h1 style="font-size:2.8rem; font-weight:800; margin-bottom:10px;">{{ .Title }}</h1>
+            <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:20px;">
+                <span style="background:var(--bg-secondary); padding:5px 20px; border-radius:30px; font-weight:600; color:var(--accent);">
+                    <i class="fas fa-tag"></i> PKR {{ .Params.price }}
+                </span>
+                <span style="background:var(--bg-secondary); padding:5px 20px; border-radius:30px; font-weight:600;">
+                    <i class="fas fa-map-marker-alt"></i> {{ .Params.location }}
+                </span>
+                <span style="background:var(--bg-secondary); padding:5px 20px; border-radius:30px; font-weight:600; 
+                    {{ if eq .Params.status "Sale" }}color:#10b981;{{ else }}color:#f59e0b;{{ end }}">
+                    <i class="fas fa-tag"></i> {{ .Params.status }}
+                </span>
+            </div>
+
+            <!-- Images Gallery -->
+            <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:15px; margin:25px 0;">
+                {{ if .Params.images }}
+                    {{ $first := index .Params.images 0 }}
+                    <div style="grid-row: span 2;">
+                        <img src="{{ $first }}" alt="{{ .Title }}" style="width:100%; height:100%; object-fit:cover; border-radius:15px;" />
+                    </div>
+                    {{ range after 1 .Params.images | first 3 }}
+                        <img src="{{ . }}" alt="{{ $.Title }}" style="width:100%; height:150px; object-fit:cover; border-radius:15px;" />
+                    {{ end }}
+                {{ else }}
+                    <div style="grid-column: span 3; background:var(--bg-secondary); padding:40px; text-align:center; border-radius:15px; color:var(--text-muted);">
+                        <i class="fas fa-image" style="font-size:3rem;"></i>
+                        <p>No images available</p>
+                    </div>
+                {{ end }}
+            </div>
+
+            <!-- ===== VIDEO FILE (MP4) - NEW ===== -->
+            {{ if .Params.video_file }}
+            <div style="margin: 25px 0; border-radius: var(--radius); overflow: hidden; background: #000; box-shadow: var(--shadow);">
+                <video controls style="width: 100%; display: block; border-radius: 15px;">
+                    <source src="{{ .Params.video_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p style="text-align: center; padding: 10px; background: var(--bg-secondary); color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+                    <i class="fas fa-play-circle" style="color: var(--accent);"></i> Video Tour
+                </p>
+            </div>
+            {{ end }}
+
+            <!-- Map -->
+            {{ if .Params.latitude }}
+            <div id="property-map" data-lat="{{ .Params.latitude }}" data-lng="{{ .Params.longitude }}"></div>
+            {{ end }}
+
+            <!-- Details -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin:30px 0;">
+                <div>
+                    <h3 style="margin-bottom:15px;">Property Details</h3>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <tr><td style="padding:10px 0; border-bottom:1px solid var(--border-color); font-weight:600;">Size</td>
+                            <td style="padding:10px 0; border-bottom:1px solid var(--border-color);">{{ .Params.size }} sq ft</td></tr>
+                        <tr><td style="padding:10px 0; border-bottom:1px solid var(--border-color); font-weight:600;">Bedrooms</td>
+                            <td style="padding:10px 0; border-bottom:1px solid var(--border-color);">{{ .Params.bedrooms }}</td></tr>
+                        <tr><td style="padding:10px 0; border-bottom:1px solid var(--border-color); font-weight:600;">Bathrooms</td>
+                            <td style="padding:10px 0; border-bottom:1px solid var(--border-color);">{{ .Params.bathrooms }}</td></tr>
+                        <tr><td style="padding:10px 0; font-weight:600;">Status</td>
+                            <td style="padding:10px 0;">{{ .Params.status }}</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3 style="margin-bottom:15px;">Description</h3>
+                    <div style="color:var(--text-secondary);">{{ .Content }}</div>
+                </div>
+            </div>
+
+            <a href="/#contact" class="btn-primary"><i class="fas fa-phone"></i> Inquire About This Property</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Map initialization
+    document.addEventListener('DOMContentLoaded', function() {
+        const mapContainer = document.getElementById('property-map');
+        if (mapContainer) {
+            const lat = parseFloat(mapContainer.dataset.lat);
+            const lng = parseFloat(mapContainer.dataset.lng);
+            if (lat && lng) {
+                const map = L.map('property-map').setView([lat, lng], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(map);
+                L.marker([lat, lng]).addTo(map)
+                    .bindPopup('{{ .Title }} - {{ .Params.location }}');
+            }
+        }
+    });
+</script>
+
+<style>
+    .property-single { max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 768px) {
+        .property-single h1 { font-size: 2rem; }
+        .property-single > div:first-of-type { flex-direction: column; }
+    }
+</style>
+{{ end }}
