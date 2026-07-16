@@ -510,7 +510,7 @@
             .hero .stats-grid { grid-template-columns: 1fr 1fr; padding: 20px; }
             .hero .stat-item .number { font-size: 1.8rem; }
             .hero {
-                background-attachment: scroll; /* Fixed parallax off for mobile */
+                background-attachment: scroll;
             }
         }
     </style>
@@ -553,7 +553,7 @@
         });
     }
 
-    // Property Filter (on list page)
+    // Property Filter
     const filterBtns = document.querySelectorAll('.filter-btn');
     const propertyCards = document.querySelectorAll('.property-card');
     if (filterBtns.length > 0) {
@@ -574,21 +574,35 @@
     }
 </script>
 
-<!-- ===== NETLIFY IDENTITY WIDGET (For Admin Invite) ===== -->
+<!-- ===== NETLIFY IDENTITY WIDGET (FIXED) ===== -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
-    // Initialize Netlify Identity Widget
     if (window.netlifyIdentity) {
         window.netlifyIdentity.init();
         
-        // Handle invite token
-        window.netlifyIdentity.on("init", user => {
-            if (!user) {
-                window.netlifyIdentity.on("login", () => {
-                    document.location.href = "/admin/";
-                });
+        if (window.location.hash.includes('invite_token')) {
+            window.netlifyIdentity.open('signup');
+        }
+        
+        window.netlifyIdentity.on('login', function() {
+            document.location.href = '/admin/';
+        });
+        
+        window.netlifyIdentity.on('init', function(user) {
+            if (user) {
+                document.location.href = '/admin/';
             }
         });
+    } else {
+        (function() {
+            var hash = window.location.hash;
+            if (hash && hash.includes('invite_token')) {
+                var token = hash.split('=')[1];
+                if (token) {
+                    window.location.href = '/admin/#invite_token=' + token;
+                }
+            }
+        })();
     }
 </script>
 
