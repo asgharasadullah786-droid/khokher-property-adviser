@@ -1,4 +1,4 @@
-baseURL = "https://stirring-gecko-3fa6c4.netlify.app/"
+baseURL = "https://khokher-property-adviser.netlify.app/"
 languageCode = "en-us"
 title = "Khokher Property Adviser"
 publishDir = "public"
