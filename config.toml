@@ -1,4 +1,4 @@
-baseURL = "https://your-home.netlify.app/"
+baseURL = "https://yourhome786.netlify.app/"
 languageCode = "en-us"
 title = "Your Home"
 publishDir = "public"
