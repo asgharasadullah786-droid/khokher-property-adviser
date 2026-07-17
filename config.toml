@@ -1,11 +1,11 @@
-baseURL = "https://khokher-property-adviser.netlify.app/"
+baseURL = "https://your-home.netlify.app/"
 languageCode = "en-us"
-title = "Khokher Property Adviser"
+title = "Your Home"
 publishDir = "public"
 
 [params]
-  name = "Khokher Property Adviser"
-  email = "khokher@property.com"
+  name = "Your Home"
+  email = "wwwmuhammadawais72@gmail.com"
   phone = "+92 300 1234567"
   address = "Lahore, Pakistan"
 

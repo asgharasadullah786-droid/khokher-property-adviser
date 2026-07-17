@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Khokher Property Adviser | All Properties</title>
+    <title>Your Home | All Properties</title>
     
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    
+    <link rel="stylesheet" href="https://identity.netlify.com/v1/netlify-identity-widget.css" />
     
     <style>
          
@@ -169,63 +172,155 @@
             display: flex;
             align-items: center;
             padding-top: 80px;
+            background-image: url('/images/property-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
         }
+
+         
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 50px;
             align-items: center;
         }
+
         .hero-content h1 {
             font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.2;
+            color: #ffffff;
         }
+
         .hero-content h1 span {
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .hero-content .tagline {
             font-size: 1.2rem;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.9);
             margin: 20px 0 30px;
         }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+         
         .hero-image {
             border-radius: 30px;
             height: 450px;
-            box-shadow: 0 30px 50px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--gradient);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
+
         .hero-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 30px;
             transition: transform 0.5s;
         }
-        .hero-image:hover img { transform: scale(1.03); }
+
+        .hero-image:hover img {
+            transform: scale(1.03);
+        }
+
         .hero-image .fallback-icon {
             position: absolute;
             font-size: 6rem;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255, 255, 255, 0.3);
             z-index: 0;
         }
-        .hero-badge {
-            display: inline-block;
-            background: var(--bg-secondary);
-            padding: 8px 20px;
+
+         
+        .hero .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            padding: 14px 35px;
             border-radius: 50px;
-            font-size: 0.9rem;
             font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+        }
+
+        .hero .btn-outline {
+            background: transparent;
+            color: #ffffff;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .hero .btn-outline:hover {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+         
+        .hero .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .hero .stat-item .label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
         }
 
          
@@ -391,6 +486,7 @@
             .hero-content h1 { font-size: 2.8rem; }
             .contact-wrapper { grid-template-columns: 1fr; }
             .hero-image { height: 350px; max-width: 400px; margin: 0 auto; }
+            .hero .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
             .nav-links {
@@ -411,6 +507,11 @@
             .properties-grid { grid-template-columns: 1fr; }
             .hero-image { height: 280px; max-width: 300px; }
             .contact-wrapper { padding: 25px; }
+            .hero .stats-grid { grid-template-columns: 1fr 1fr; padding: 20px; }
+            .hero .stat-item .number { font-size: 1.8rem; }
+            .hero {
+                background-attachment: scroll;
+            }
         }
     </style>
 </head>
@@ -418,11 +519,14 @@
 
 <nav>
     <div class="container">
-        <div class="logo">Khokher<span>Properties</span></div>
+        <div class="logo">
+            <img src="/images/logo.jpg" alt="Your Home" style="height: 40px; width: auto; vertical-align: middle;" />
+            <span style="margin-left: 10px; font-weight: 800; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Your Home</span>
+        </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="//localhost:1313/">Home</a></li>
-            <li><a href="//localhost:1313/#properties">Properties</a></li>
-            <li><a href="//localhost:1313/#contact">Contact</a></li>
+            <li><a href="http://localhost:1313/">Home</a></li>
+            <li><a href="http://localhost:1313/#properties">Properties</a></li>
+            <li><a href="http://localhost:1313/#contact">Contact</a></li>
             <li><a href="/admin">Admin</a></li>
             <li><button id="theme-toggle"><i class="fas fa-moon"></i></button></li>
         </ul>
@@ -460,13 +564,13 @@
 <footer>
     <div class="container">
         <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.facebook.com/awais.khokher.14"><i class="fab fa-facebook"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://wa.me/923066677323"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p style="margin-top:15px;">© 2026 <strong>Khokher Property Adviser</strong> — All Rights Reserved.</p>
-        <p style="font-size:0.85rem; color:var(--text-muted);">Built with ❤️ on Netlify</p>
+        <p style="margin-top:15px;">© 2026 <strong>Your Home</strong> — All Rights Reserved.</p>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Built with ❤️ Asadullah.</p>
     </div>
 </footer>
 
@@ -518,5 +622,44 @@
         });
     }
 </script>
+
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+    (function() {
+        
+        var hash = window.location.hash;
+        var token = null;
+        
+        if (hash && (hash.includes('invite_token') || hash.includes('confirmation_token'))) {
+            
+            var tokenPart = hash.split('=')[1];
+            if (tokenPart) {
+                token = tokenPart;
+            }
+        }
+        
+        if (token) {
+            
+            
+            window.location.href = '/admin/' + hash;
+        } else {
+            
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.init({
+                    container: '#netlify-identity-widget'
+                });
+                
+                
+                window.netlifyIdentity.on('init', function(user) {
+                    if (user) {
+                        document.location.href = '/admin/';
+                    }
+                });
+            }
+        }
+    })();
+</script>
+
 </body>
 </html>

@@ -4,7 +4,7 @@
 	<meta name="generator" content="Hugo 0.164.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Khokher Property Adviser | Khokher Property Adviser</title>
+    <title>Your Home | Your Home</title>
     
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    
+    <link rel="stylesheet" href="https://identity.netlify.com/v1/netlify-identity-widget.css" />
     
     <style>
          
@@ -508,7 +511,7 @@
             .hero .stats-grid { grid-template-columns: 1fr 1fr; padding: 20px; }
             .hero .stat-item .number { font-size: 1.8rem; }
             .hero {
-                background-attachment: scroll;  
+                background-attachment: scroll;
             }
         }
     </style>
@@ -517,11 +520,14 @@
 
 <nav>
     <div class="container">
-        <div class="logo">Khokher<span>Properties</span></div>
+        <div class="logo">
+            <img src="/images/logo.jpg" alt="Your Home" style="height: 45px; width: 45px; border-radius: 50%; object-fit: cover; vertical-align: middle;" />
+            <span style="margin-left: 12px; font-weight: 700; font-size: 1.3rem; color: var(--text-primary);">Your Home</span>
+        </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="//localhost:1313/">Home</a></li>
-            <li><a href="//localhost:1313/#properties">Properties</a></li>
-            <li><a href="//localhost:1313/#contact">Contact</a></li>
+            <li><a href="http://localhost:1313/">Home</a></li>
+            <li><a href="http://localhost:1313/#properties">Properties</a></li>
+            <li><a href="http://localhost:1313/#contact">Contact</a></li>
             <li><a href="/admin">Admin</a></li>
             <li><button id="theme-toggle"><i class="fas fa-moon"></i></button></li>
         </ul>
@@ -536,7 +542,7 @@
     <div class="container hero-grid">
         <div class="hero-content" data-aos="fade-right">
             <div class="hero-badge"><i class="fas fa-home"></i> Pakistan's Trusted Property Advisor</div>
-            <h1>Find Your <span>Dream Property</span><br>With <span>Khokher</span> Property Adviser</h1>
+            <h1>Find Your <span>Dream Property</span><br>With <span>Your Home</span></h1>
             <p class="tagline">We help you find the best properties for sale and rent across Pakistan. Trusted by hundreds of happy clients.</p>
             <div>
                 <a href="#properties" class="btn-primary"><i class="fas fa-search"></i> Browse Properties</a>
@@ -545,7 +551,7 @@
         </div>
         <div class="hero-image" data-aos="fade-left">
             
-            <img src="/images/awais.jpg" alt="Khokher Property Adviser" />
+            <img src="/images/awais.jpg" alt="Your Home" />
             <i class="fas fa-user-tie fallback-icon"></i>
         </div>
     </div>
@@ -576,9 +582,9 @@
         <p class="section-subtitle" data-aos="fade-up">Have questions? We're here to help you find the perfect property.</p>
         <div class="contact-wrapper" data-aos="zoom-in">
             <div class="contact-info-side">
-                <h3>Contact Khokher Property Adviser</h3>
+                <h3>Contact Your Home</h3>
                 <p>We provide expert guidance for buying, selling, and renting properties across Pakistan.</p>
-                <div class="contact-detail"><i class="fas fa-envelope"></i> <span>khokher@property.com</span></div>
+                <div class="contact-detail"><i class="fas fa-envelope"></i> <span>wwwmuhammadawais72@gmail.com</span></div>
                 <div class="contact-detail"><i class="fas fa-phone"></i> <span>+92 306 6677323</span></div>
                 <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> <span>Kamoki, Gujrawala, Pakistan</span></div>
                 <div style="margin-top:25px;">
@@ -617,7 +623,7 @@
             <a href="#"><i class="fab fa-youtube"></i></a>
             <a href="https://wa.me/923066677323"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p style="margin-top:15px;">© 2026 <strong>Khokher Property Adviser</strong> — All Rights Reserved.</p>
+        <p style="margin-top:15px;">© 2026 <strong>Your Home</strong> — All Rights Reserved.</p>
         <p style="font-size:0.85rem; color:var(--text-muted);">Built with ❤️ Asadullah.</p>
     </div>
 </footer>
@@ -670,5 +676,44 @@
         });
     }
 </script>
+
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+    (function() {
+        
+        var hash = window.location.hash;
+        var token = null;
+        
+        if (hash && (hash.includes('invite_token') || hash.includes('confirmation_token'))) {
+            
+            var tokenPart = hash.split('=')[1];
+            if (tokenPart) {
+                token = tokenPart;
+            }
+        }
+        
+        if (token) {
+            
+            
+            window.location.href = '/admin/' + hash;
+        } else {
+            
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.init({
+                    container: '#netlify-identity-widget'
+                });
+                
+                
+                window.netlifyIdentity.on('init', function(user) {
+                    if (user) {
+                        document.location.href = '/admin/';
+                    }
+                });
+            }
+        }
+    })();
+</script>
+
 </body>
 </html>
